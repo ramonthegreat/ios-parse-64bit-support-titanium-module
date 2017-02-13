@@ -1,15 +1,15 @@
 iOS 64bit Support Parse Module for Appcelerator Titanium
-======
+========================================================
 
 How to Setup Parse Module in your project for Compiling
-------
+-------------------------------------------------------
 1. Download com.ramonparse.module.iphone-1.0.zip and install it in your project. Please check the link on [How to install module in Titanium](http://docs.appcelerator.com/platform/latest/#!/guide/Using_a_Module)
 2. Clone this repository somewhere in your computer.
 3. Open "~/module/com.ramonparse.module/1.0/module.xconfig" and edit the line from "/Users/ramoncalimbas/Documents/Appcelerator_Studio_Workspace/ramonparse" to the FULL PATH of where you cloned this repository.
 4. Run the APP.
 
 How to Modify/Build Parse Module
-------
+--------------------------------
 1. Clone this repository somewhere in your computer.
 2. Open "module.xconfig" file and edit the line from "/Users/ramoncalimbas/Documents/Appcelerator_Studio_Workspace/ramonparse" to the FULL PATH of where you cloned this repository.
 3. In titanium.xconfig set the right Titanium SDK version: TITANIUM_SDK_VERSION = 5.1.1.GA
@@ -19,17 +19,21 @@ How to Modify/Build Parse Module
 5. If build is success, a zip module will be generated in your current directory and you may use that in your project.
 
 To Initialize
-------
+-------------
+    
+```javascript
 	var parse = require('com.ramonparse.module');
 	parse.initParse({
 		appId: 'YOUR PARSE APP ID', 
 		clientKey: 'YOUR PARSE CLIENT KEY'
 	});
+```
 
 
 Create a new object in the class of 'Game':
------------
+-------------------------------------------
 
+```javascript
     parse.createObject('Game', {
     	name: 'My first game', 
     	level: 1
@@ -40,9 +44,12 @@ Create a new object in the class of 'Game':
        		// use data.object -- it is just plain JSON
        }       
     });
+```
 
 Update an object: 
------------
+----------------
+
+```javascript
 	// NOTE: obj must have been retrieved from parse module (and later modified).
     parse.updateObject(obj, function(data) { 
       if(data.error) {
@@ -51,11 +58,14 @@ Update an object:
      		// worked!
       } 
     });
+```
 
 Find an object: 
------------
+---------------
 Using an array of conditions in which to filter them.  For example: 
-	// specifying _User targets the 'User' class in Parse.  If you want to specify your own class, no need for the _.
+
+```javascript
+    // specifying _User targets the 'User' class in Parse.  If you want to specify your own class, no need for the _.
 	parse.findObjects('_User', [
 		{key: 'email', condition: '==', value: 'someemail@someemail.com'}
 	], function(data) {
@@ -68,9 +78,10 @@ Using an array of conditions in which to filter them.  For example:
 			//You've got some results
 		}
 	});
+```
 
 Using multiple conditions:
-
+```javascript
 	parse.findObjects('Game', [
 		{key: 'level', condition: '>=', value: 1}, 
 		{key: 'level', condition: '<=', value: 5}, 
@@ -78,8 +89,11 @@ Using multiple conditions:
 		{key: 'position', condition: 'orderby', value: 'asc'}
 	], function(data) {  ... });
 
-Save All Objects
-------------
+```
+Save All Objects:
+-----------------
+
+```javascript
 	// for example, this one starts with findObjects
 	parse.findObjects('Test', [], function(data) {
 	  var objectArray = data.results; 
@@ -95,9 +109,12 @@ Save All Objects
 	    }
 	  });
 	}); 
+```
 
-Signup User
+Signup User:
 ------------
+
+```javascript
 	parse.signupUser({
 		email: 'EMAIL ADDRESS', 
 		password: 'PASSWORD', 
@@ -109,9 +126,12 @@ Signup User
 			// use data.user
 		}			              
 	});
+```
 
-Login User
-------------
+Login User:
+-----------
+
+```javascript
 	parse.loginUser({
 		username: username, 
 		password: password
@@ -120,16 +140,21 @@ Login User
 			...
 		}
 	});
+```
 
 Current User
 ------------
+
+```
 	parse.currentUser will refer to the current user, and null if there's not one.
 
 	Also, you can use parse.refreshUser() to ensure parse.currentUser contains the latest user info.
+```
 
+Request Password Reset:
+-----------------------
 
-Request Password Reset
-------------
+```javascript
 	parse.requestPasswordReset({
 		email: 'some@email.com'
 	}); 
@@ -143,12 +168,13 @@ Request Password Reset
 
 		}
 	});
+```
 
-
-Upload a File
-------------
+Upload a File:
+--------------
 Files need to be attached to an object.  Please make sure to pass in an object that you retrieved from the parse module when making the assignment.  
 
+```javascript
     parse.createFile({
       name: 'FILENAME'
       data: 'DATA', // can be imageview.image, for example
@@ -159,10 +185,12 @@ Files need to be attached to an object.  Please make sure to pass in an object t
     }, function(data) {
     	if(data.error) { ... }
     });
-
+```
 
 Cloud Code:
-------------
+-----------
+
+```javascript
 	parse.callCloudFunction('FUNCTION NAME', {
 		PARAM1: 'VALUE1'  // your parameters here	
 	}, function(result) {
@@ -171,14 +199,15 @@ Cloud Code:
 			// use result.object
 		}
 	});
-	
+```	
 	
 Push Notifications:
-------------
+-------------------
 For more info on Parse Push Notifications at setting up SSL push certificates : [https://parse.com/tutorials/ios-push-notifications](https://parse.com/tutorials/ios-push-notifications)
 
 To register for push notifications unique token should be retrieved from the device.
-	
+
+```javascript
 	Ti.Network.registerForPushNotifications({
 		callback: function pushCallback(e)
 		{},
@@ -201,23 +230,30 @@ To register for push notifications unique token should be retrieved from the dev
 			Ti.Network.NOTIFICATION_TYPE_SOUND
 		]
 	});
+```
 
 Subscribing from channel:
-------
-	
+-------------------------
+
+```javascript
 	parse.subscribeToChannel('dummyChannel', function(data) {
 		// alert(data);
 	});	
+```
 
 Unsubscribing from channel:
-------
-	
+---------------------------
+
+```javascript
 	parse.unsubscribeToChannel('dummyChannel', function(data) {
 		// alert(data);
 	});
+```
 	
 Clearing the app badge (reset to 0) and persist on server:
-------
-	
+----------------------------------------------------------
+
+```javascript
 	parse.clearBadge();
+```
 	
