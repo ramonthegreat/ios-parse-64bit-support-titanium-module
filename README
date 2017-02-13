@@ -1,17 +1,17 @@
 iOS 64bit Support Parse Module for Appcelerator Titanium
-===========================================
+======
 
 How to Setup Parse Module in your project for Compiling
--------------------------------------------------
+------
 1. Download com.ramonparse.module.iphone-1.0.zip and install it in your project. Please check the link on [How to install module in Titanium](http://docs.appcelerator.com/platform/latest/#!/guide/Using_a_Module)
 2. Clone this repository somewhere in your computer.
-3. Open "~/module/com.ramonparse.module/1.0/module.xconfig" and edit the line from "/Users/ramoncalimbas/Documents/Appcelerator_Studio_Workspace/ramonparse/iphone" to the FULL PATH of where you cloned this repository.
+3. Open "~/module/com.ramonparse.module/1.0/module.xconfig" and edit the line from "/Users/ramoncalimbas/Documents/Appcelerator_Studio_Workspace/ramonparse" to the FULL PATH of where you cloned this repository.
 4. Run the APP.
 
 How to Modify/Build Parse Module
---------------------------------
+------
 1. Clone this repository somewhere in your computer.
-2. Open "module.xconfig" file and edit the line from "/Users/ramoncalimbas/Documents/Appcelerator_Studio_Workspace/ramonparse/iphone" to the FULL PATH of where you cloned this repository.
+2. Open "module.xconfig" file and edit the line from "/Users/ramoncalimbas/Documents/Appcelerator_Studio_Workspace/ramonparse" to the FULL PATH of where you cloned this repository.
 3. In titanium.xconfig set the right Titanium SDK version: TITANIUM_SDK_VERSION = 5.1.1.GA
 4. From a terminal, go to the cloned directory and run the build.py script:
 	cd /PATH/TO/WHERE/YOU/CLONED/THIS/REPOSITORY
@@ -19,7 +19,7 @@ How to Modify/Build Parse Module
 5. If build is success, a zip module will be generated in your current directory and you may use that in your project.
 
 To Initialize
---------------
+------
 	var parse = require('com.ramonparse.module');
 	parse.initParse({
 		appId: 'YOUR PARSE APP ID', 
@@ -203,21 +203,21 @@ To register for push notifications unique token should be retrieved from the dev
 	});
 
 Subscribing from channel:
-------------------------
+------
 	
 	parse.subscribeToChannel('dummyChannel', function(data) {
 		// alert(data);
 	});	
 
 Unsubscribing from channel:
---------------------------
+------
 	
 	parse.unsubscribeToChannel('dummyChannel', function(data) {
 		// alert(data);
 	});
 	
 Clearing the app badge (reset to 0) and persist on server:
-----------------------------------------------------------
+------
 	
 	parse.clearBadge();
 	
